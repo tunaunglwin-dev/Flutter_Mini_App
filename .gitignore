@@ -1,0 +1,30 @@
+# JavaScript
+mini-app/node_modules/
+mini-app/dist/
+mini-app/.vercel/
+
+# Flutter and Dart
+Infinity_App-main/.dart_tool/
+Infinity_App-main/.pub/
+Infinity_App-main/build/
+Infinity_App-main/coverage/
+Infinity_App-main/.flutter-plugins-dependencies
+
+# Android build output and machine-local SDK configuration
+**/.gradle/
+**/.kotlin/
+**/build/
+**/local.properties
+
+# IDE and operating-system files
+**/.idea/
+**/*.iml
+.DS_Store
+Thumbs.db
+
+# Local diagnostics
+*.log
+
+# Local APK handoff artifacts
+output/
+*.apk
