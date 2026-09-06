@@ -8,6 +8,8 @@
 - Demo reward catalog, point deductions, confirmation, history and reset are implemented. Initial local demo balance is 1,250 points, isolated from the real wallet and Home snapshot.
 - Host integration uses a restricted read/write SharedPreferences bridge for demo state. No wallet SDK, authentication, real redemption or server-backed balance enforcement is connected.
 - Build web assets with `npm run build:flutter` in `../mini-app` before rebuilding Flutter. Android/iOS are the intended embedded targets; desktop/web fallback points to the standalone web preview.
+- Full engineering guide: `context/reward-shop-capacitor-guide.md`.
+- Public deployment supplied by the project owner: `https://flutter-mini-f42jdfr8z-tunaunglwin-devs-projects.vercel.app/`.
 
 The older transition checklist below predates the currently implemented five-tab shell and wallet code.
 

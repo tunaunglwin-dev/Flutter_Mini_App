@@ -10,6 +10,10 @@ This workspace contains the Flutter Infinity Wellness shell and its Vue/Capacito
 
 See [`mini-app/INTEGRATION.md`](mini-app/INTEGRATION.md) for the architecture, offline behavior, configuration and testing flow. See [`mini-app/README.md`](mini-app/README.md) for build commands.
 
+The complete implementation and operations guide is [`Infinity_App-main/context/reward-shop-capacitor-guide.md`](Infinity_App-main/context/reward-shop-capacitor-guide.md).
+
 ## Vercel
 
 When importing into Vercel, choose `mini-app` as the Root Directory. Framework preset: Vite. The committed `mini-app/vercel.json` already sets the build command and output directory.
+
+Current deployment: https://flutter-mini-f42jdfr8z-tunaunglwin-devs-projects.vercel.app/

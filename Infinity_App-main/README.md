@@ -177,4 +177,6 @@ build/app/outputs/flutter-apk/app-debug.apk
 
 ## Related system
 
+Reward Shop configuration, Capacitor packaging, Flutter hosting, offline behavior and Vercel operations are documented in [`context/reward-shop-capacitor-guide.md`](context/reward-shop-capacitor-guide.md).
+
 The Electron Builder Workspace owns coordination and work execution workflows such as creating and managing Work Items. FlutterBuilderStudio App remains intentionally mobile-focused and read-oriented so Builders can follow Apps, review work updates, and access Rewards without reproducing the full desktop Workspace.

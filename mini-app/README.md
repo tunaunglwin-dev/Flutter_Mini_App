@@ -2,6 +2,8 @@
 
 Vue 3 + Vite + Capacitor 8 prototype, built as a separate mini-app alongside the Flutter project.
 
+Public deployment: https://flutter-mini-f42jdfr8z-tunaunglwin-devs-projects.vercel.app/
+
 ## Try it
 
 ```powershell
@@ -53,6 +55,19 @@ npm run build:flutter
 ```
 
 `tests/shop.test.js` covers deductions, persistence round-trip, repeated request IDs, exact-balance spending, insufficient funds and corrupt saved data.
+
+## Deploy updates to Vercel
+
+The Vercel project must use `mini-app` as its Root Directory, Vite as the framework, `npm run build` as the build command and `dist` as the output directory. After GitHub integration is enabled, each push to `main` starts a production deployment:
+
+```powershell
+cd D:\Infinity_App_Main
+git add <changed-files>
+git commit -m "Describe the Reward Shop update"
+git push origin main
+```
+
+The browser deployment requires internet access. The installed Capacitor APK and the Flutter-bundled version use packaged web assets and continue working offline. For configuration, bridge message examples, offline rules, build commands and troubleshooting, see [`../Infinity_App-main/context/reward-shop-capacitor-guide.md`](../Infinity_App-main/context/reward-shop-capacitor-guide.md).
 
 Main files: `src/App.vue` (flow), `src/RewardArt.vue` and `src/style.css` (visuals), `src/shop.js` (catalog and deductions), `src/storage.js` (platform storage adapter).
 
