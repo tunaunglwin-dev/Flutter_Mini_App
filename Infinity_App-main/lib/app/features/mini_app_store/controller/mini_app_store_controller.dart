@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinity_wellness/app/constant/routing/app_route.dart';
 import 'package:infinity_wellness/app/core/base/base_controller.dart';
+import 'package:infinity_wellness/app/features/feed/controller/feed_controller.dart';
+import 'package:infinity_wellness/app/features/shell/controller/shell_controller.dart';
 
 class MiniAppModule {
   MiniAppModule({
@@ -33,39 +35,22 @@ class MiniAppStoreController extends BaseController {
   final selectedFilter = 'All'.obs;
   final filterCategories = const [
     'All',
-    'Rewards & Perks',
     'Health Literacy',
     'Vitality & Intake',
     'Mutual Accountability',
+    'Rewards & Gear',
   ];
 
   final miniApps = <MiniAppModule>[
     MiniAppModule(
-      id: 'reward-shop',
-      title: 'Reward Shop',
-      subtitle: 'Good habits. Little rewards.',
-      category: 'Rewards & Perks',
-      description:
-          'Explore wellness rewards and try redeeming demo points in our Vue mini-app.',
-      icon: Icons.redeem_rounded,
-      colorHex: 0xFF0D9488,
-      features: [
-        'Browse rewards and point costs',
-        'Demo point deductions with confirmation',
-        'Locally saved redemption history',
-      ],
-      version: 'v0.1.0 (Prototype)',
-      isPinned: false,
-    ),
-    MiniAppModule(
       id: 'medical-news',
-      title: 'Medical News & Myths',
-      subtitle: 'Curated by medical students & doctors',
+      title: 'News',
+      subtitle: 'Medical news & myth-busting',
       category: 'Health Literacy',
       description:
           'Combat false health trends with verified evidence-based articles, interactive Myth vs. Fact breakdowns, and digital health Q&A.',
       icon: Icons.article_rounded,
-      colorHex: 0xFF6200EE,
+      colorHex: 0xFF2563EB,
       features: [
         'Evidence-based wellness articles',
         'Interactive Myth vs. Fact cards',
@@ -76,13 +61,13 @@ class MiniAppStoreController extends BaseController {
     ),
     MiniAppModule(
       id: 'smart-hydration',
-      title: 'Smart Hydration Reminder',
-      subtitle: 'Dynamic water goals & intake logger',
+      title: 'Hydration',
+      subtitle: 'Smart daily water logger',
       category: 'Vitality & Intake',
       description:
           'Smart daily water calculator based on your weight, height, and activity level. One-tap logging and automated push reminders.',
       icon: Icons.water_drop_rounded,
-      colorHex: 0xFF00A3FF,
+      colorHex: 0xFF0284C7,
       features: [
         'Dynamic smart water calculator',
         'Frictionless 1-tap logging',
@@ -93,17 +78,51 @@ class MiniAppStoreController extends BaseController {
     ),
     MiniAppModule(
       id: 'friend-synergy',
-      title: 'Friend Synergy (1-on-1)',
-      subtitle: 'Mutual accountability for pairs',
+      title: 'Synergy',
+      subtitle: '1-on-1 partner accountability',
       category: 'Mutual Accountability',
       description:
           'Dedicated 1-on-1 accountability for partners or best friends. Send mutual nudges, build shared Synergy Streaks, and view synced real-time progress.',
       icon: Icons.people_alt_rounded,
-      colorHex: 0xFF005C99,
+      colorHex: 0xFF0D9488,
       features: [
         'Mutual hydration & screen break nudges',
         'Shared Synergy Streak system',
         'Real-time synced partner dashboard',
+      ],
+      version: 'v1.0.0 (Phase 1)',
+      isPinned: true,
+    ),
+    MiniAppModule(
+      id: 'rewards-shop',
+      title: 'Shop',
+      subtitle: 'Perks, gear & vouchers',
+      category: 'Rewards & Gear',
+      description:
+          'Explore the official catalog of Infinity PureFlow™ smart bottles, HydroMax+ electrolyte drops, synergy streak freeze shields, discount vouchers, and UI themes.',
+      icon: Icons.storefront_rounded,
+      colorHex: 0xFF2563EB,
+      features: [
+        'Official UV-C smart bottles & drops',
+        'Instant discount promo codes',
+        'Synergy streak freeze shields',
+      ],
+      version: 'v1.0.0 (Phase 1)',
+      isPinned: true,
+    ),
+    MiniAppModule(
+      id: 'achievements',
+      title: 'Achievements',
+      subtitle: 'Milestones & badges',
+      category: 'Rewards & Gear',
+      description:
+          'Track wellness badges, unlock streak achievements, and earn rewards points.',
+      icon: Icons.emoji_events_rounded,
+      colorHex: 0xFFF59E0B,
+      features: [
+        '6+ unique milestone badges',
+        'Earn extra wellness points',
+        'Synced mutual partner achievements',
       ],
       version: 'v1.0.0 (Phase 1)',
       isPinned: true,
@@ -113,6 +132,14 @@ class MiniAppStoreController extends BaseController {
   List<MiniAppModule> get filteredMiniApps {
     if (selectedFilter.value == 'All') return miniApps;
     return miniApps.where((m) => m.category == selectedFilter.value).toList();
+  }
+
+  Map<String, List<MiniAppModule>> get groupedMiniApps {
+    final map = <String, List<MiniAppModule>>{};
+    for (final app in miniApps) {
+      map.putIfAbsent(app.category, () => []).add(app);
+    }
+    return map;
   }
 
   void togglePin(String id) {
@@ -129,15 +156,26 @@ class MiniAppStoreController extends BaseController {
   }
 
   void launchModule(MiniAppModule app) {
-    if (app.id == 'reward-shop') {
-      Get.toNamed<void>(Routes.rewardShop);
-      return;
+    if (app.id == 'smart-hydration') {
+      Get.toNamed(Routes.hydrationDetail);
+    } else if (app.id == 'friend-synergy') {
+      Get.toNamed(Routes.partnerDetail);
+    } else if (app.id == 'rewards-shop') {
+      Get.toNamed(Routes.rewardShopMiniApp);
+    } else if (app.id == 'achievements') {
+      Get.toNamed(Routes.achievements);
+    } else if (app.id == 'medical-news') {
+      Get.find<ShellController>().selectTab(1);
+      if (Get.isRegistered<FeedController>()) {
+        Get.find<FeedController>().selectTab(SocialTab.feed);
+      }
+    } else {
+      Get.snackbar(
+        'Opening ${app.title}',
+        'Launching module sandbox (${app.version})...',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 2),
+      );
     }
-    Get.snackbar(
-      'Opening ${app.title}',
-      'Launching module sandbox (${app.version})...',
-      snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 2),
-    );
   }
 }

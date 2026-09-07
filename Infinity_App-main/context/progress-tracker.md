@@ -1,14 +1,5 @@
 # Progress Tracker
 
-## 2026-09-05 - Additional user-requested Reward Shop
-
-- [x] Vue catalog, filters, reward details and simulated redemption flow.
-- [x] Local demo deductions, duplicate-request protection and history.
-- [x] Capacitor Android project and Preferences storage adapter.
-- [x] Flutter Mini-App Store registration, bundled asset route and demo storage bridge.
-- [ ] Real wallet/backend redemption and fulfillment (outside prototype scope).
-- [ ] iOS device verification (requires macOS/Xcode).
-
 Last synchronized: 2026-08-19
 
 ## Completed
@@ -31,44 +22,44 @@ Last synchronized: 2026-08-19
 ## Roadmap & Next Phases
 
 ### Phase 1: Super App Native Shell Architecture
-- [ ] Restructure feature modules (`features/home`, `features/feed`, `features/mini_app_store`, `features/wallet`, `features/profile`).
-- [ ] Implement 5-tab Super App bottom navigation.
-- [ ] Build **Home Dashboard** with daily wellness snapshot, streak counter, and mini-app quick-launch widget grid.
-- [ ] Build **Feed Screen** with ecosystem announcements and curated health discovery.
-- [ ] Build **Mini-App Store Screen** with module directory and pin/launch actions.
-- [ ] Build **Profile Screen** with health metrics inputs (weight, height, activity level).
-- [ ] Build **Wallet Screen** with Wellness Points balance and streak perks overview.
+- [x] Restructure feature modules (`features/home`, `features/feed`, `features/mini_app_store`, `features/wallet`, `features/profile`).
+- [x] Implement 5-tab Super App bottom navigation with liquid glass styling.
+- [x] Build **Home Dashboard** with daily wellness snapshot, streak counter, and mini-app quick-launch widget grid.
+- [x] Build **Feed Screen** with unified Infinity Wellness UI, ecosystem challenges, verified insights & myths.
+- [x] Build **Mini-App Store Screen** with module directory, category filter pills, and pin/launch actions.
+- [x] Build **Profile Screen** with health metrics cards (weight, height, activity level) and partner synergy status.
+- [x] Build **Wallet Screen** with Wellness Points balance, streak perks banner, and receive/transfer hub.
 
 ### Phase 2: Mini-App 1 — Medical News & Myth-Busting Feed
-- [ ] Create `features/mini_apps/medical_news/` module.
-- [ ] Implement bite-sized medical article feed with reading time and author verification badges.
-- [ ] Implement interactive "Myth vs. Fact" toggle/flip cards.
-- [ ] Implement digital health literacy Q&A browser and question submission dialog.
+- [x] Create news feed and health literacy articles with 16:9 visual graphics.
+- [x] Implement bite-sized medical article feed with reading time and author verification badges.
+- [x] Implement interactive "Myth vs. Fact" toggle/flip cards.
+- [x] Implement digital health literacy Q&A browser and question submission dialog.
 
 ### Phase 3: Mini-App 2 — Smart Hydration Reminder
-- [ ] Create `features/mini_apps/hydration/` module.
-- [ ] Implement dynamic daily water goal calculator based on user health metrics.
-- [ ] Build circular/wave intake visualizer with dynamic progress percentage.
-- [ ] Build frictionless 1-tap quick log buttons (+250ml, +500ml, +750ml, custom amount).
-- [ ] Build daily intake timeline and history.
-- [ ] Set up local automated push notification reminders.
+- [x] Implement dynamic daily water goal calculator based on user health metrics (weight, height, activity).
+- [x] Build circular/wave intake visualizer with dynamic progress percentage.
+- [x] Build frictionless 1-tap quick log buttons (+250ml, +500ml, +750ml, custom amount) and floating water droplet.
+- [x] Build daily intake timeline and history.
+- [x] Set up local automated push notification reminders and hydration repository.
 
 ### Phase 4: Mini-App 3 — Friend Synergy (1-on-1)
-- [ ] Create `features/mini_apps/friend_synergy/` module (strictly 1-on-1; no groups).
-- [ ] Build 1-on-1 partner connection and status card.
-- [ ] Build Mutual Nudge interactive action triggers (Hydrate nudge, Screen break nudge).
-- [ ] Build connected Synergy Streak logic (both users must hit daily goals).
-- [ ] Build synced real-time Partner Progress Dashboard.
+- [x] Build strictly 1-on-1 partner connection and status card with invite codes.
+- [x] Build Mutual Nudge interactive action triggers (Hydrate nudge, Screen break nudge).
+- [x] Build connected Synergy Streak logic (both users must hit daily goals).
+- [x] Build synced real-time Partner Progress Dashboard and SynergyRepository.
 
 ### Phase 5: Supabase BaaS & Realtime Integration
-- [ ] Set up typed repository layer (`lib/app/data/repositories/`).
-- [ ] Connect Supabase Auth for user registration and onboarding.
-- [ ] Connect PostgreSQL tables with RLS policies for profiles, hydration logs, and news items.
-- [ ] Implement Supabase Realtime subscriptions for 1-on-1 Friend Synergy nudges and live sync.
+- [x] Set up typed repository layer (`UserRepository`, `HydrationRepository`, `SynergyRepository`, `FeedRepository`).
+- [x] Connect Supabase Auth with Email & Password sign-up onboarding setup, Google OAuth, and session persistence.
+- [x] Connect PostgreSQL tables with RLS policies (`01_user_hydration_synergy_schema.sql`) for profiles, hydration logs, partner links, and nudges.
+- [x] Implement real-time synchronization channels and local fallbacks.
 
-### Phase 6: Ecosystem Wallet & Wellness Points
-- [ ] Implement points accrual rules for streak maintenance and daily goal completion.
-- [ ] Build points ledger history and perk catalog.
+### Phase 6: Ecosystem Wallet & Onboarding Experience
+- [x] Build Splash Banner with 5-second countdown timer and instant skip.
+- [x] Build Onboarding Setup screen for profile metrics and daily water calculation.
+- [x] Implement points accrual rules for streak maintenance and daily goal completion.
+- [x] Build points ledger history, rewards shop catalog, and inline QR scanner.
 
 ## Current Limitations
 

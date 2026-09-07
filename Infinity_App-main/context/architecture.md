@@ -1,9 +1,5 @@
 # Architecture Context
 
-## Reward Shop prototype extension (2026-09-05)
-
-`../mini-app` contains a separate Vue 3 web application with Capacitor Android packaging. Flutter's `features/mini_apps/reward_shop/` supplies a GetX binding/controller/view and loads its single-file build from `assets/mini_apps/reward_shop/index.html`. A JavaScript channel exposes only local demo state reads/writes, persisted under `reward_shop_demo_v1`. There is no wallet SDK access through this bridge. Browser and standalone Capacitor runs use localStorage and Capacitor Preferences respectively. These local balances are not shared with Home or Wallet. Run `npm run build:flutter` to refresh the Flutter asset.
-
 ## Stack
 
 | Layer | Technology | Role |

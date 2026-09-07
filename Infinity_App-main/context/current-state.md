@@ -1,17 +1,13 @@
 # Current State
 
-## 2026-09-05: Reward Shop prototype
+## 2026-09-06: Vue/Capacitor Reward Shop integration
 
-- Added a user-requested Vue 3 + Capacitor mini-app in the workspace sibling directory `../mini-app/`.
-- Mini-App Store includes Reward Shop and launches `/mini-apps/reward-shop`.
-- Flutter hosts the bundled web build using `webview_flutter`; Capacitor provides a separate standalone Android project using the same Vue source.
-- Demo reward catalog, point deductions, confirmation, history and reset are implemented. Initial local demo balance is 1,250 points, isolated from the real wallet and Home snapshot.
-- Host integration uses a restricted read/write SharedPreferences bridge for demo state. No wallet SDK, authentication, real redemption or server-backed balance enforcement is connected.
-- Build web assets with `npm run build:flutter` in `../mini-app` before rebuilding Flutter. Android/iOS are the intended embedded targets; desktop/web fallback points to the standalone web preview.
-- Full engineering guide: `context/reward-shop-capacitor-guide.md`.
-- Public deployment supplied by the project owner: `https://flutter-mini-f42jdfr8z-tunaunglwin-devs-projects.vercel.app/`.
-
-The older transition checklist below predates the currently implemented five-tab shell and wallet code.
+- The Flutter base is synchronized with Avara International commit `e55e029cb348957c1a2b02fb7e59828656d3a7f4`.
+- The Mini-App Store's Shop module launches the bundled Vue Reward Shop through `webview_flutter` at `/mini-apps/reward-shop`.
+- The existing native Rewards Shop remains available to Home and Wallet routes.
+- Demo deductions persist through a restricted SharedPreferences JSON bridge and do not change the real wallet balance.
+- The bundled Vue app works offline because `assets/mini_apps/reward_shop/index.html` is packaged in the Flutter APK.
+- Full implementation and deployment guide: `context/reward-shop-capacitor-guide.md`.
 
 Last synchronized: 2026-08-19
 
@@ -42,8 +38,9 @@ The repository is structured to migrate from the initial monolithic prototype sh
 ## Transition Status
 
 1. **Context & PRD Alignment**: Completed context files alignment (`AGENTS.md`, `project-overview.md`, `current-state.md`, `architecture.md`, `code-standards.md`, `ui-context.md`, `progress-tracker.md`, `decision-log.md`, `ai-workflow-rules.md`).
-2. **UI & Navigation Migration**: Evolving bottom navigation from 3 tabs to the 5-tab Super App shell (Home, Feed, Mini-App Store, Wallet, Profile).
-3. **Domain Logic & Data Layer**: Structuring typed services and repositories for Supabase Auth, PostgreSQL models, and Realtime channels.
+2. **UI & Navigation Migration**: Established the 5-tab Super App shell (Home, Feed, Mini-App Store, Wallet, Profile) with dynamic startup routing (`Routes.login` for unauthenticated sessions, `Routes.shell` for authenticated sessions).
+3. **Authentication & Supabase**: Integrated live `supabase_flutter` with Email & Password sign-in / sign-up (including biometrics onboarding for weight, height, activity level, and calculated daily water goal), Google OAuth, deep-link callback filters (`io.supabase.infinitywellness://login-callback/`), reactive `AuthService`, and instant PostgreSQL profile synchronization. Package name migrated to `com.infinitywellness.app`.
+4. **Domain Logic & Data Layer**: Typed repositories (`UserRepository`, `HydrationRepository`, `SynergyRepository`) backed by Supabase PostgreSQL and Realtime subscriptions with offline fallbacks.
 
 ## Implementation Guardrails
 

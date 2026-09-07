@@ -1,15 +1,25 @@
 import 'package:get/get.dart';
-import 'package:infinity_wellness/app/features/mini_apps/reward_shop/binding/reward_shop_binding.dart';
-import 'package:infinity_wellness/app/features/mini_apps/reward_shop/screen/reward_shop_screen.dart';
 import 'package:infinity_wellness/app/constant/routing/app_route.dart';
+import 'package:infinity_wellness/app/features/auth/binding/auth_binding.dart';
+import 'package:infinity_wellness/app/features/auth/screen/login_screen.dart';
 import 'package:infinity_wellness/app/features/feed/binding/feed_binding.dart';
 import 'package:infinity_wellness/app/features/feed/screen/feed_screen.dart';
 import 'package:infinity_wellness/app/features/home/binding/home_binding.dart';
 import 'package:infinity_wellness/app/features/home/screen/home_screen.dart';
 import 'package:infinity_wellness/app/features/mini_app_store/binding/mini_app_store_binding.dart';
 import 'package:infinity_wellness/app/features/mini_app_store/screen/mini_app_store_screen.dart';
+import 'package:infinity_wellness/app/features/mini_apps/reward_shop/binding/reward_shop_binding.dart';
+import 'package:infinity_wellness/app/features/mini_apps/reward_shop/screen/reward_shop_screen.dart';
+import 'package:infinity_wellness/app/features/hydration/binding/hydration_detail_binding.dart';
+import 'package:infinity_wellness/app/features/hydration/screen/hydration_detail_screen.dart';
+import 'package:infinity_wellness/app/features/partner/binding/partner_detail_binding.dart';
+import 'package:infinity_wellness/app/features/partner/screen/partner_detail_screen.dart';
+import 'package:infinity_wellness/app/features/achievements/binding/achievements_binding.dart';
+import 'package:infinity_wellness/app/features/achievements/screen/achievements_screen.dart';
 import 'package:infinity_wellness/app/features/profile/binding/profile_binding.dart';
 import 'package:infinity_wellness/app/features/profile/screen/profile_screen.dart';
+import 'package:infinity_wellness/app/features/rewards_shop/binding/rewards_shop_binding.dart';
+import 'package:infinity_wellness/app/features/rewards_shop/screen/rewards_shop_screen.dart';
 import 'package:infinity_wellness/app/features/shell/binding/shell_binding.dart';
 import 'package:infinity_wellness/app/features/shell/screen/shell_screen.dart';
 import 'package:infinity_wellness/app/features/wallet/binding/wallet_binding.dart';
@@ -20,16 +30,32 @@ import 'package:infinity_wellness/app/features/wallet/screen/send_screen.dart';
 import 'package:infinity_wellness/app/features/wallet/screen/transaction_history_screen.dart';
 import 'package:infinity_wellness/app/features/wallet/screen/wallet_screen.dart';
 
+import 'package:infinity_wellness/app/features/auth/binding/onboarding_setup_binding.dart';
+import 'package:infinity_wellness/app/features/auth/screen/onboarding_setup_screen.dart';
+
+import 'package:infinity_wellness/app/features/splash/binding/splash_banner_binding.dart';
+import 'package:infinity_wellness/app/features/splash/screen/splash_banner_screen.dart';
+
 class AppPages {
   AppPages._();
 
-  static const initial = Routes.shell;
+  static const initial = Routes.splash;
 
   static final routes = [
     GetPage(
-      name: Routes.rewardShop,
-      page: () => const RewardShopScreen(),
-      binding: RewardShopBinding(),
+      name: Routes.splash,
+      page: () => const SplashBannerScreen(),
+      binding: SplashBannerBinding(),
+    ),
+    GetPage(
+      name: Routes.login,
+      page: () => const LoginScreen(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.onboarding,
+      page: () => const OnboardingSetupScreen(),
+      binding: OnboardingSetupBinding(),
     ),
     GetPage(
       name: Routes.shell,
@@ -55,6 +81,31 @@ class AppPages {
       name: Routes.profile,
       page: () => const ProfileScreen(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: Routes.partnerDetail,
+      page: () => const PartnerDetailScreen(),
+      binding: PartnerDetailBinding(),
+    ),
+    GetPage(
+      name: Routes.hydrationDetail,
+      page: () => const HydrationDetailScreen(),
+      binding: HydrationDetailBinding(),
+    ),
+    GetPage(
+      name: Routes.rewardsShop,
+      page: () => const RewardsShopScreen(),
+      binding: RewardsShopBinding(),
+    ),
+    GetPage(
+      name: Routes.rewardShopMiniApp,
+      page: () => const RewardShopScreen(),
+      binding: RewardShopBinding(),
+    ),
+    GetPage(
+      name: Routes.achievements,
+      page: () => const AchievementsScreen(),
+      binding: AchievementsBinding(),
     ),
     // Compatibility alias
     GetPage(

@@ -1,9 +1,5 @@
 # Decision Log
 
-## 2026-09-05 - Vue Reward Shop and Capacitor prototype
-
-User requested a Reward Shop mini-app using Vue and Capacitor. Keep the existing Flutter shell; add a bundled WebView host under `features/mini_apps/reward_shop/` and a separate Vue project at `../mini-app`. Capacitor is the standalone native packaging target, not the Flutter embedding mechanism. Use a single-file offline web build to avoid asset-path/module-loading issues. Keep prototype points and storage separate from the existing wallet. All real deductions require a future authoritative backend contract.
-
 This log records architectural, product, and technical decisions shaping **Infinity Wellness** (by Infinity Water).
 
 ## 2026-08-19 — Pivot to Infinity Wellness (by Infinity Water)
@@ -70,6 +66,19 @@ Use Supabase (Auth, PostgreSQL, Realtime, Storage) as the exclusive backend infr
 - PostgreSQL Row Level Security (RLS) policies enforce all access control.
 - Service-role keys are strictly prohibited in the client.
 
+## 2026-08-24 — Inline QR Scanner on Send Tab in Wallet Screen
+
+### Decision
+Embed the live camera QR scanner directly in the Send tab of the Transfer & Receive hub on the Wallet screen, replacing the static card and external navigation button.
+
+### Reason
+Reduces friction when transferring Wellness Points to friends, enabling instant scanning on the same screen while automatically releasing camera hardware when switching tabs or backgrounding the app.
+
+### Result
+- `_InlineWalletScanner` starts camera preview immediately when switching to the Send tab.
+- Added viewfinder reticle overlay, animated scanning line, torch toggle, dynamic scanning status, and clipboard paste fallback.
+- Camera lifecycle is synchronized with app lifecycle and shell navigation.
+
 ## 2026-08-19 — Ecosystem Wallet for Wellness Points
 
 ### Decision
@@ -78,10 +87,32 @@ Introduce an in-app Wallet dedicated to "Wellness Points" accrued through mainta
 ### Reason
 Provides positive gamification and loyalty incentives redeemable for brand perks without using cryptocurrency or Web3 complexity.
 
-## 2026-08-19 — Retain Flutter + GetX Architectural Foundation
+## 2026-08-19 — Supabase Authentication with Google OAuth Exclusive Sign-In
 
 ### Decision
-Preserve Flutter with GetX state management, dependency injection, and centralized routing (`BaseController`, `BaseView`, Bindings, `AppPages`, `AppRoutes`).
+Connect Supabase authentication to the app with **Google OAuth** as the exclusive sign-in method.
 
 ### Reason
-The established foundation provides clean reactive state management, predictable navigation, and decoupled testability across shell views and mini-apps.
+- Simplifies the onboarding flow for youths and young adults to a single frictionless tap.
+- Eliminates password fatigue and friction while ensuring secure OAuth 2.0 PKCE authentication.
+- Automatically populates user profile identity (name, email, avatar).
+
+### Result
+- Added `supabase_flutter` dependency and configured deep link schemes (`io.supabase.infinitywellness://login-callback/`) across Android and iOS.
+- Implemented `SupabaseService` and `AuthService` with reactive session streaming and state management.
+- Built a modern, branded `LoginScreen` with the "Continue with Google" button and informative fallback for development/explorer mode.
+- Integrated profile screen with reactive user session data and Sign Out confirmation.
+
+## 2026-09-02 — Adopt Option 1 (Shadcn) Wallet Design System
+
+### Decision
+Adopt the **Option 1 — Shadcn Wallet Design System** direction as the standard UI architecture across the Ecosystem Wallet.
+
+### Reason
+- Provides a clean, minimalist, high-contrast, professional mobile interface with clear typographic hierarchy (Plus Jakarta Sans & Inter).
+- Replaces heavy ambient gradients with a crisp slate canvas (`#F8FAFC`), pure white card surfaces (`#FFFFFF`), subtle 1px borders (`#E2E8F0`), and soft shadows.
+- Features prominent Royal Blue (`#2563EB`) points balances, high-contrast streak badges (`#16A34A`), smooth animated segmented control tabs, and integrated inline QR scanning.
+
+### Result
+- Added dedicated `WalletColors`, `WalletSpacing`, `WalletRadius`, `WalletShadows`, and `WalletTextStyles` design tokens in `wallet_ui_metrics.dart`.
+- Refactored `WalletScreen`, `SectionCard`, `WalletReceiveScreen`, `WalletSendScreen`, `WalletSendReviewScreen`, `WalletTransactionHistoryScreen`, and `WalletSendScanScreen` to strictly adhere to the Option 1 Shadcn design specifications.
